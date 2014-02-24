@@ -1,0 +1,23 @@
+================================================================================
+===     Spring PetClinic sample application - PostgreSQL Configuration       ===
+================================================================================
+
+@author Johans Marvin Taboada Villca
+
+--------------------------------------------------------------------------------
+
+1) Download and install the PostgreSQL database, which can be found
+   here: http://www.postgresql.org/download/
+
+2) The PostgreSQL JDBC driver is already referenced from the Petclinic POM.
+
+3) Create the PetClinic database and user by executing the "db/postgresql/createDB.txt"
+   script.
+
+4) Open "src/main/resources/jdbc.properties"; comment out all properties in the
+   "HSQL Settings" and "MySQL Settings" sections; uncomment all properties in
+   the "PostgreSQL Settings" section.
+
+5) This application uses the DATABASE_URL environment variable to get the database
+   connection. Ensure it exists, either provided by your execution enviroment
+   (Stackato, Heroku, etc.), or by setting it in your local environment.

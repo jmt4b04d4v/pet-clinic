@@ -3,5 +3,5 @@ mem: 512M
 framework:
   type: buildpack
 services:
-  mysql-spring:
-    type: mysql
+  ${name}-db: mysql
+ignores: [".git", ".settings", "target", ".classpath", ".gitignore", ".project"]

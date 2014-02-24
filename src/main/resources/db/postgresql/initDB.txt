@@ -1,0 +1,66 @@
+CREATE TABLE IF NOT EXISTS vets (
+  id INT NOT NULL,
+  first_name VARCHAR(30),
+  last_name VARCHAR(30),
+  constraint pk_vets primary key (id)
+);
+create index ix_vets_last_name_1 on vets (last_name);
+
+CREATE TABLE IF NOT EXISTS specialties (
+  id INT NOT NULL,
+  name VARCHAR(80),
+  constraint pk_specialties primary key (id)
+);
+create unique index ix_specialties_name_1 on specialties (name);
+
+CREATE TABLE IF NOT EXISTS vet_specialties (
+  vet_id INT NOT NULL,
+  specialty_id INT NOT NULL,
+  constraint pk_vet_specialties primary key (vet_id, specialty_id)
+);
+alter table vet_specialties add constraint fk_vet_specialties_vets_01 foreign key (vet_id) references vets (id);
+create index ix_vet_specialties_vet_1 on vet_specialties (vet_id);
+alter table vet_specialties add constraint fk_vet_specialties_specialties_01 foreign key (specialty_id) references specialties (id);
+create index ix_vet_specialties_specialty_1 on vet_specialties (specialty_id);
+
+CREATE TABLE IF NOT EXISTS types (
+  id INT NOT NULL,
+  name VARCHAR(80),
+  constraint pk_types primary key (id)
+);
+create unique index ix_types_name_1 on types (name);
+
+CREATE TABLE IF NOT EXISTS owners (
+  id INT NOT NULL,
+  first_name VARCHAR(30),
+  last_name VARCHAR(30),
+  address VARCHAR(255),
+  city VARCHAR(80),
+  telephone VARCHAR(20),
+  constraint pk_owners primary key (id)
+);
+create index ix_owners_last_name_1 on owners (last_name);
+
+CREATE TABLE IF NOT EXISTS pets (
+  id INT NOT NULL,
+  name VARCHAR(30),
+  birth_date DATE,
+  type_id INT NOT NULL,
+  owner_id INT NOT NULL,
+  constraint pk_pets primary key (id)
+);
+create index ix_pets_name_1 on pets (name);
+alter table pets add constraint fk_pets_types_01 foreign key (type_id) references types (id);
+create index ix_pets_type_1 on pets (type_id);
+alter table pets add constraint fk_pets_owners_01 foreign key (owner_id) references owners (id);
+create index ix_pets_owner_1 on pets (owner_id);
+
+CREATE TABLE IF NOT EXISTS visits (
+  id INT NOT NULL,
+  pet_id INT NOT NULL,
+  visit_date DATE,
+  description VARCHAR(255),
+  constraint pk_visits primary key (id)
+);
+alter table visits add constraint fk_visits_pets_01 foreign key (pet_id) references pets (id);
+create index ix_visits_pet_1 on visits (pet_id);
