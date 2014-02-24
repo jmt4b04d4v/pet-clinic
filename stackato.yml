@@ -5,3 +5,4 @@ min_version:
 services:
   ${name}-db: mysql
 app-dir: target
+ignores: [".git", ".settings", "target", ".classpath", ".gitignore", ".project"]
